@@ -6,6 +6,7 @@ import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import pl.infoshare.springdi.airports.model.Airport;
 import pl.infoshare.springdi.airports.model.Continent;
@@ -21,6 +22,7 @@ import java.util.Optional;
 @HttpFinderQualifier
 @Primary
 @AllArgsConstructor
+@Profile("http")
 public class HttpFinder implements AirportFinder {
     private final HttpClient httpClient;
     private final ClientProperties clientProperties;

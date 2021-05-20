@@ -2,6 +2,7 @@ package pl.infoshare.springdi.airports;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import pl.infoshare.springdi.airports.model.Airport;
 import pl.infoshare.springdi.airports.model.Continent;
@@ -17,6 +18,7 @@ import java.util.Optional;
 
 @Component
 @CSVFinderQualifier
+@Profile("csv")
 public class CsvFinder implements AirportFinder {
 
     private final CsvReader csvReader;
