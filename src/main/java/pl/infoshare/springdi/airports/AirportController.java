@@ -11,9 +11,10 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 public class AirportController {
+    private final AirportService airportService;
 
     @GetMapping("/api/airports/{iata}")
     public Optional<Airport> getAirport(@PathVariable String iata) {
-        return Optional.empty();
+        return airportService.find(iata);
     }
 }
