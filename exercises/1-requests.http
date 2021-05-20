@@ -11,3 +11,7 @@ GET http://localhost:8081/api/airports/RIO
 ###
 
 GET http://localhost:8081/api/airports/NIEISTNIEJE
+
+###
+
+GET http://localhost:8081/api/airports/GDN

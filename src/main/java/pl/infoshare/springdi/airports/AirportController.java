@@ -9,9 +9,13 @@ import pl.infoshare.springdi.airports.model.Airport;
 import java.util.Optional;
 
 @RestController
-@RequiredArgsConstructor
 public class AirportController {
-    private final AirportService airportService;
+
+    private final AirportFinder airportService;
+
+    public AirportController(@HttpFinderQualifier AirportFinder airportService) {
+        this.airportService = airportService;
+    }
 
     @GetMapping("/api/airports/{iata}")
     public Optional<Airport> getAirport(@PathVariable String iata) {

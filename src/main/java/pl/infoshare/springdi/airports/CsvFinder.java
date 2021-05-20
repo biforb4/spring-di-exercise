@@ -1,5 +1,6 @@
 package pl.infoshare.springdi.airports;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import pl.infoshare.springdi.airports.model.Airport;
 import pl.infoshare.springdi.airports.model.Continent;
@@ -14,12 +15,13 @@ import java.util.Optional;
 
 
 @Component
-public class AirportService {
+@CSVFinderQualifier
+public class CsvFinder implements AirportFinder {
 
     private final CsvReader csvReader;
     private List<Airport> airports;
 
-    public AirportService(CsvReader csvReader) {
+    public CsvFinder(CsvReader csvReader) {
         this.csvReader = csvReader;
         this.airports = new ArrayList<>();
     }
@@ -37,6 +39,7 @@ public class AirportService {
         this.airports = csvReader.parse(source, rowMapper);
     }
 
+    @Override
     public Optional<Airport> find(String iata) {
         return airports.stream()
                 .filter(a -> a.getIata().equals(iata))
