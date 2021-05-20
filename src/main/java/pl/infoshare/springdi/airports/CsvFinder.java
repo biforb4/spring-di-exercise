@@ -1,6 +1,7 @@
 package pl.infoshare.springdi.airports;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import pl.infoshare.springdi.airports.model.Airport;
 import pl.infoshare.springdi.airports.model.Continent;
@@ -19,10 +20,12 @@ import java.util.Optional;
 public class CsvFinder implements AirportFinder {
 
     private final CsvReader csvReader;
+    private final String csvPath;
     private List<Airport> airports;
 
-    public CsvFinder(CsvReader csvReader) {
+    public CsvFinder(CsvReader csvReader, @Value("${airports.csv}") String csvPath) {
         this.csvReader = csvReader;
+        this.csvPath = csvPath;
         this.airports = new ArrayList<>();
     }
 
@@ -30,7 +33,7 @@ public class CsvFinder implements AirportFinder {
     public void load() {
         FileReader source;
         try {
-            source = new FileReader("airports.csv");
+            source = new FileReader(csvPath);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }

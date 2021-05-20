@@ -1,9 +1,10 @@
 package pl.infoshare.springdi.airports;
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
+import lombok.Value;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import pl.infoshare.springdi.airports.model.Airport;
@@ -21,18 +22,17 @@ import java.util.Optional;
 @Primary
 @AllArgsConstructor
 public class HttpFinder implements AirportFinder {
-    public static final String APC_AUTH = "1c865af9d5";
-    public static final String APC_AUTH_SECRET = "0b532ce6a35027b";
     private final HttpClient httpClient;
+    private final ClientProperties clientProperties;
 
 
     @Override
     public Optional<Airport> find(String iata) {
         var request = HttpRequest.newBuilder()
                 .POST(HttpRequest.BodyPublishers.noBody())
-                .uri(URI.create("https://www.air-port-codes.com/api/v1/single?iata=" + iata))
-                .header("APC-Auth", APC_AUTH)
-                .header("APC-Auth-Secret", APC_AUTH_SECRET)
+                .uri(URI.create(clientProperties.getUrl() + iata))
+                .header("APC-Auth", clientProperties.getApcAuth())
+                .header("APC-Auth-Secret", clientProperties.getApcAuthSecret())
                 .build();
 
         HttpResponse<String> result;
