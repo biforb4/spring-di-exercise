@@ -3,6 +3,7 @@ package pl.infoshare.springdi.claims.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Value;
+import pl.infoshare.springdi.airports.model.Airport;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -17,22 +18,9 @@ public class Claim {
 
     ClaimType type;
     Integer totalDelay;
-    String startingAirport;
-    String destinationAirport;
     LocalDate flightDate;
-
-    @JsonCreator
-    public Claim(@JsonProperty("type") ClaimType type,
-                 @JsonProperty("totalDelay") Integer totalDelay,
-                 @JsonProperty("startingAirport") String startingAirport,
-                 @JsonProperty("destinationAirport") String destinationAirport,
-                 @JsonProperty("flightDate") LocalDate flightDate) {
-        this.type = type;
-        this.totalDelay = totalDelay;
-        this.startingAirport = startingAirport;
-        this.destinationAirport = destinationAirport;
-        this.flightDate = flightDate;
-    }
+    Airport startAirport;
+    Airport destAirport;
 
     public BigDecimal getTotalDelayInHours() {
         return BigDecimal.valueOf(totalDelay).divide(MINUTES_IN_HOUR, RoundingMode.HALF_UP);
@@ -44,6 +32,10 @@ public class Claim {
 
     public boolean isDelayed() {
         return type == ClaimType.DELAYED;
+    }
+
+    public ClaimEligibility getEligibility() {
+        return ClaimRegulation.getEligibilityfor(this);
     }
 }
 
