@@ -8,6 +8,8 @@ import pl.infoshare.springdi.airports.model.Airport;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.util.Comparator;
+import java.util.stream.Stream;
 
 /**
  * Uwaga: Potrzebne dopiero do zadania piątego.
@@ -35,7 +37,15 @@ public class Claim {
     }
 
     public ClaimEligibility getEligibility() {
-        return ClaimRegulation.getEligibilityfor(this);
+        var regulation = Stream.of(ClaimRegulation.values())
+                .filter(c -> c.eligible(this))
+                .max(Comparator.comparing(o -> o.PRIORITY));
+
+        if (regulation.isEmpty()) {
+            return new ClaimEligibility(false, ClaimRegulation.NONE);
+        }
+
+        return new ClaimEligibility(true, regulation.get());
     }
 }
 

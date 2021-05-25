@@ -11,7 +11,7 @@ import java.time.LocalDate;
  * Uwaga: Potrzebne dopiero do zadania piątego.
  */
 @Value
-public class ClaimDto {
+public class ClaimRequest {
 
     ClaimType type;
     Integer totalDelay;
@@ -20,11 +20,11 @@ public class ClaimDto {
     LocalDate flightDate;
 
     @JsonCreator
-    public ClaimDto(@JsonProperty("type") ClaimType type,
-                 @JsonProperty("totalDelay") Integer totalDelay,
-                 @JsonProperty("startingAirport") String startingAirport,
-                 @JsonProperty("destinationAirport") String destinationAirport,
-                 @JsonProperty("flightDate") LocalDate flightDate) {
+    public ClaimRequest(@JsonProperty("type") ClaimType type,
+                        @JsonProperty("totalDelay") Integer totalDelay,
+                        @JsonProperty("startingAirport") String startingAirport,
+                        @JsonProperty("destinationAirport") String destinationAirport,
+                        @JsonProperty("flightDate") LocalDate flightDate) {
         this.type = type;
         this.totalDelay = totalDelay;
         this.startingAirport = startingAirport;

@@ -3,8 +3,8 @@ POST http://localhost:8081/api/eligibility-check
 Content-Type: application/json
 
 {
-  "type": "CANCELLED",
-  "totalDelay": 121,
+  "type": "DELAYED",
+  "totalDelay": 80,
   "startingAirport": "JFK",
   "destinationAirport": "LHR",
   "flightDate": "2020-01-20"
@@ -12,12 +12,12 @@ Content-Type: application/json
 
 ### Brazil eligible
 
-POST http://localhost:8080/api/eligibility-check
+POST http://localhost:8081/api/eligibility-check
 Content-Type: application/json
 
 {
   "type": "DELAYED",
-  "totalDelay": 181,
+  "totalDelay": 501,
   "startingAirport": "RIO",
   "destinationAirport": "SAO",
   "flightDate": "2018-01-20"

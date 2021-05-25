@@ -12,7 +12,7 @@ public class ClaimsController {
     private final CreateClaimService claimService;
 
     @PostMapping("/api/eligibility-check")
-    public ClaimEligibility postClaim(@RequestBody ClaimDto dto) {
+    public ClaimEligibility postClaim(@RequestBody ClaimRequest dto) {
         return claimService.createClaim(dto);
     }
 }
